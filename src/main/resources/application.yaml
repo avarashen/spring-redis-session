@@ -2,10 +2,10 @@ spring:
   session:
     store-type: ${type:redis}
     redis:
-      namespace: ${namespace:test}
-      configure-action: none # disable destroy event processing to optimize performance
+      namespace: ${namespace:default} # key-prefix
+      configure-action: none # disable destroy event processing to optimize performance (we don't need to invalidate a session immediately when it expires)
       cleanup-cron: '-' # disable run of clean up job (to prevent unnecessary requests to redis)
-    timeout: ${timeout:60}
+    timeout: ${timeout:60} # seconds
   redis:
     host: localhost
     port: 6379
@@ -13,6 +13,12 @@ spring:
     user:
       name: user
       password: pass
+
+server:
+  servlet:
+    session:
+      cookie:
+        name: ABCFS-COOKIE
 
 logging:
   level:
