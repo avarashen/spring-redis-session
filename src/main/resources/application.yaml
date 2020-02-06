@@ -3,6 +3,8 @@ spring:
     store-type: ${type:redis}
     redis:
       namespace: ${namespace:test}
+      configure-action: none # disable destroy event processing to optimize performance
+      cleanup-cron: '-' # disable run of clean up job (to prevent unnecessary requests to redis)
     timeout: ${timeout:60}
   redis:
     host: localhost
